@@ -7,7 +7,7 @@ arch:
 services:
   - docker
 
- script:
-   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-   - docker build . -t $DOCKER_USERNAME/coredns:$(uname -p)
-   - docker push $DOCKER_USERNAME/coredns:$(uname -p)
+script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build . -t $DOCKER_USERNAME/coredns:$(uname -p)
+  - docker push $DOCKER_USERNAME/coredns:$(uname -p)
