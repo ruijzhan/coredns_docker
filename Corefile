@@ -1,0 +1,69 @@
+.:53 {
+    hosts {
+        fallthrough
+        no_reverse
+    }
+    forward . 127.0.0.1:5301 127.0.0.1:5302 127.0.0.1:5304 127.0.0.1:5303 {
+        policy round_robin
+        prefer_udp
+        expire 120s
+
+    }
+    proxy . 223.5.5.5 223.6.6.6 119.29.29.29 119.28.28.28 114.114.114.114 {
+        policy round_robin
+        spray
+    }
+    cache 60 {
+        success 5000
+        denial 200
+        prefetch 5
+    }
+    #log . "{remote}:{port} - {>id} '{type} {class} {name} {proto} {size} {>do} {>bufsize}' {rcode} {>rflags} {rsize} {duration}"
+    log . "{duration} - {rcode} - {name} "
+    health
+    errors
+    prometheus 0.0.0.0:9053
+}
+.:5301 {
+    forward . tls://8.8.8.8 tls://8.8.4.4 {
+        tls_servername dns.google
+        policy round_robin
+        expire 120s
+        max_fails 3
+        health_check 1s
+    }
+    cache
+}
+.:5302 {
+    forward . tls://1.1.1.1 tls://1.0.0.1 {
+        tls_servername 1dot1dot1dot1.cloudflare-dns.com
+        policy round_robin
+        expire 120s
+        max_fails 3
+        health_check 1s
+    }
+    cache
+}
+
+.:5303 {
+    forward . tls://9.9.9.9 tls://9.9.9.10 {
+        tls_servername dns.quad9.net
+        policy round_robin
+        expire 120s
+        max_fails 3
+        health_check 1s
+    }
+    cache
+}
+
+.:5304 {
+    proxy . 208.67.222.222:443 208.67.222.222:5353 208.67.220.220:443  208.67.220.220:5353 {
+        policy round_robin
+        protocol dns force_tcp
+        spray
+    }
+    cache
+}
+
+
+
