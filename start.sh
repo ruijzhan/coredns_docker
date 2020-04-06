@@ -11,5 +11,5 @@ docker run -d --name coredns \
            -p $IP:53:53/tcp \
      	   -p $IP:53:53/udp \
            -p 9053:9053/tcp \
-           ruijzhan/coredns:$(uname -p)
+           ruijzhan/coredns:$ARCH
 
