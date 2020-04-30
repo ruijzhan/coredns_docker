@@ -3,6 +3,7 @@ RUN set -x &&\
     git clone https://github.com/coredns/coredns &&\
     cd coredns &&\
     echo proxy:github.com/coredns/proxy >> plugin.cfg &&\
+    echo coreadblock:github.com/ruijzhan/coreadblock >> plugin.cfg &&\
     go generate coredns.go &&\
     make
 FROM alpine:3.11.5
