@@ -1,8 +1,12 @@
 .:53 {
-    hosts {
-        fallthrough
-        no_reverse
-    }
+
+#    coreadblock . {
+#        except ad.360in.com
+#        url https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+#        url https://adaway.org/hosts.txt
+#        ip 127.0.0.1
+#    }
+
     forward . 127.0.0.1:5301 127.0.0.1:5302 127.0.0.1:5304 127.0.0.1:5303 {
         policy round_robin
         prefer_udp
