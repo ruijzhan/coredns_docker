@@ -1,6 +1,6 @@
 FROM golang:1.14.1 as build
 RUN set -x &&\
-    git clone https://github.com/ruijzhan/coredns &&\
+    git clone https://github.com//coredns &&\
     cd coredns &&\
     go generate coredns.go &&\
     make
